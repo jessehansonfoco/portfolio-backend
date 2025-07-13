@@ -100,9 +100,17 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Database Image');
+        $contentRowPart->setImageUrl('/images/database_product.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('Database Paragraph');
         $contentHtml = '<p>When I design a database structure, I consider how the "objects" are related, and also how to look up individual rows. '.
             'If we consider a product database, we need to look up the product by its SKU, and maybe a UPC code. '.
@@ -111,14 +119,6 @@ class InsertDemoDataCommand extends Command
             'From the category side, a category can also have many products, so we should create a many-to-many "mapper" table. '.
             'Our mapper table will store a reference to both a product and a category. </p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Database Image');
-        $contentRowPart->setImageUrl('/images/database_product.png');
         $this->em->persist($contentRowPart);
 
         $counter++;
@@ -159,9 +159,17 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Single Sign On Image');
+        $contentRowPart->setImageUrl('/images/sso.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('Single Sign On Paragraph');
         $contentHtml = '<p>I\'ve implemented Single Sign On quite a few times, using both OAuth2 and SAML. '.
             'Generally speaking, SAML is used with internal organizations. '.
@@ -176,14 +184,6 @@ class InsertDemoDataCommand extends Command
         $contentRowPart->setContent($contentHtml);
         $this->em->persist($contentRowPart);
 
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Database Image');
-        $contentRowPart->setImageUrl('/images/sso.png');
-        $this->em->persist($contentRowPart);
-
         $counter++;
         $contentRow = new ContentRow();
         $contentRow->setContent($content);
@@ -192,9 +192,17 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Doctrine Image');
+        $contentRowPart->setImageUrl('/images/doctrine_class.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('Database ORM Paragraph');
         $contentHtml = '<p>In the middle of all of this, there is the code that communicates with the database. '.
             'In software architecture, this is referred to as the Model. It is the code that interacts with data storage. '.
@@ -204,14 +212,6 @@ class InsertDemoDataCommand extends Command
             'When you\'re creating new rows of data or updating existing rows, your code will get and set information, '.
             'then call a save function to store the rows of data in the database.</p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Doctrine Image');
-        $contentRowPart->setImageUrl('/images/doctrine_class.png');
         $this->em->persist($contentRowPart);
 
         return $this;
@@ -269,9 +269,17 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Code Review Image');
+        $contentRowPart->setImageUrl('/images/code_review.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('About my Code Review Experience');
         $contentHtml = '<p>Code review is a critical step in the development process. '.
             'It\'s important to catch performance issues before they reach the production server. '.
@@ -281,14 +289,6 @@ class InsertDemoDataCommand extends Command
             'In almost every instance, the query in the loop can be replaced with a single query. '.
             'It just takes a little more thought and time. It\'s always worth it in the end.</p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Code Review Image');
-        $contentRowPart->setImageUrl('/images/code_review.png');
         $this->em->persist($contentRowPart);
 
         // Project planning
@@ -331,22 +331,22 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Jira Image');
+        $contentRowPart->setImageUrl('/images/jira.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('About my Jira and Trello Experience');
         $contentHtml = '<p>Jira is a powerful tool for planning projects, and it has a lot of features for visualizations and analytics. '.
             'Whether it\'s time tracking, sprint planning, or creating simple tasks, it all adds up to important information which can be used to improve project performance. '.
             'I\'ve worked with most areas of Jira, and I enjoy working with it. I think a tightly managed project should use as many features as possible. </p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Jira Image');
-        $contentRowPart->setImageUrl('/images/jira.png');
         $this->em->persist($contentRowPart);
 
         return $this;
@@ -403,23 +403,23 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Database Image');
+        $contentRowPart->setImageUrl('/images/database.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('About the Database');
         $contentHtml = '<p>The database contains three tables for storing content and one table for storing admin users. '.
             'The content table represents a single page on the site. '.
             'The content_row table represents individual rows of content within a page. '.
             'The content_row_part table represents a slot of content, and it can be stored as an image or a paragraph of text.</p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Database Image');
-        $contentRowPart->setImageUrl('/images/database.png');
         $this->em->persist($contentRowPart);
 
         // Doctrine
@@ -460,9 +460,17 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('REST API Image');
+        $contentRowPart->setImageUrl('/images/rest_response.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('About the Backend');
         $contentHtml = '<p>The backend REST API is built with Symfony 7.x. Its primary function is to return data to the frontend application. '.
             'The API has public endpoints as well as protected endpoints. '.
@@ -470,14 +478,6 @@ class InsertDemoDataCommand extends Command
             'Each admin user is assigned a unique API key after they login successfully. '.
             'The frontend app includes the API key when it calls the backend API to update the database.</p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('REST API Image');
-        $contentRowPart->setImageUrl('/images/rest_response.png');
         $this->em->persist($contentRowPart);
 
         // Vue JS frontend application
@@ -521,23 +521,23 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Vue JS Image');
+        $contentRowPart->setImageUrl('/images/local_storage.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('How the frontend handles Login');
         $contentHtml = '<p>When you submit the login form, Vue sends your username and password to the login API. '.
             'If your login is successful, the API response will contain your user details and an API key. '.
             'The Vue code stores your user details in the web browser\'s local storage. '.
             'After the API key is stored in your browser, you can use the admin panel to call the protected API endpoints, and update content in the database.</p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Vue JS Image');
-        $contentRowPart->setImageUrl('/images/local_storage.png');
         $this->em->persist($contentRowPart);
 
         // Frontend theme and Admin panel : tailwind css, shadcn/ui
@@ -580,23 +580,23 @@ class InsertDemoDataCommand extends Command
         $this->em->persist($contentRow);
 
         $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Tailwind CSS Image');
+        $contentRowPart->setImageUrl('/images/vueform.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setTypeCode('text');
-        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('About Vue Form');
         $contentHtml = '<p>I decided to use VueForm for editing my site\'s content pages, since it supports editing nested layers of data within a single form. '.
             'VueForm is a powerful tool for creating complex forms. It provides a lot of options for adding logic around form inputs. '.
             'For example, when I choose text or image for my content slots I can have certain form inputs hide or display. '.
             'The code for this is easy to use, and it saves a lot of time.</p>';
         $contentRowPart->setContent($contentHtml);
-        $this->em->persist($contentRowPart);
-
-        $contentRowPart = new ContentRowPart();
-        $contentRowPart->setTypeCode('image');
-        $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Tailwind CSS Image');
-        $contentRowPart->setImageUrl('/images/vueform.png');
         $this->em->persist($contentRowPart);
 
         $counter++;
@@ -708,19 +708,19 @@ class InsertDemoDataCommand extends Command
 
         $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setTypeCode('text');
+        $contentRowPart->setTypeCode('image');
         $contentRowPart->setSortOrder(1);
-        $contentRowPart->setTitle('Mtn Biking Text');
-        $contentHtml = '<p>I really enjoy mountain biking !<br>My favorite trails are between Boulder and Lyons, Colorado. Exercise is important for the mind and body. Great scenery makes it so much more fun !</p>';
-        $contentRowPart->setContent($contentHtml);
+        $contentRowPart->setTitle('Mtn Biking Image');
+        $contentRowPart->setImageUrl('/images/mtnbike.jpg');
         $this->em->persist($contentRowPart);
 
         $contentRowPart = new ContentRowPart();
         $contentRowPart->setContentRow($contentRow);
-        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setTypeCode('text');
         $contentRowPart->setSortOrder(2);
-        $contentRowPart->setTitle('Mtn Biking Image');
-        $contentRowPart->setImageUrl('/images/mtnbike.jpg');
+        $contentRowPart->setTitle('Mtn Biking Text');
+        $contentHtml = '<p>I really enjoy mountain biking !<br>My favorite trails are between Boulder and Lyons, Colorado. Exercise is important for the mind and body. Great scenery makes it so much more fun !</p>';
+        $contentRowPart->setContent($contentHtml);
         $this->em->persist($contentRowPart);
 
         $contentRow = new ContentRow();
@@ -748,8 +748,6 @@ class InsertDemoDataCommand extends Command
             'I always enjoy learning new things! Click the badge to see my Adobe Developer Certification.</p>';
         $contentRowPart->setContent($contentHtml);
         $this->em->persist($contentRowPart);
-
-        // todo : images of Vue, Symfony, Laravel
 
         return $this;
     }
