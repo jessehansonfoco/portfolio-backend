@@ -9,21 +9,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Content;
 use App\Entity\ContentRow;
 use App\Entity\ContentRowPart;
 
 #[AsCommand(
-    name: 'demo:insert',
+    name: 'webapp:demo:insert',
     description: 'Insert demo data',
 )]
 class InsertDemoDataCommand extends Command
 {
     public function __construct(
-        protected EntityManagerInterface $em,
-        protected UserPasswordHasherInterface $passwordHasher
+        protected EntityManagerInterface $em
     ) {
         parent::__construct();
     }
@@ -36,13 +34,12 @@ class InsertDemoDataCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $this->createUsers();
 
         $this->createAboutMe();
         $this->createAboutThisSite();
         $this->createLeadershipExperience();
 
-        // createBackendExperience()
+        $this->createBackendDevelopment();
         // createFrontendExperience()
         // createDevopsExperience()
 
@@ -57,7 +54,6 @@ class InsertDemoDataCommand extends Command
 
     protected function createBackendDevelopment(): static
     {
-
         $now = new \DateTimeImmutable('now');
         $content = new Content();
         $content->setSlug('backend-development');
@@ -66,7 +62,7 @@ class InsertDemoDataCommand extends Command
         $content->setShortDescription('My backend development experience.');
         $content->setSortOrder(3);
         $content->setCreatedAt($now);
-        $content->setImageUrl('/images/placeholder.svg');
+        $content->setImageUrl('/images/backend_development.png');
         $this->em->persist($content);
 
         $counter = 1;
@@ -81,7 +77,7 @@ class InsertDemoDataCommand extends Command
         $contentRowPart->setContentRow($contentRow);
         $contentRowPart->setSortOrder(1);
         $contentRowPart->setTitle('Intro Image');
-        $contentRowPart->setImageUrl('/images/placeholder.svg');
+        $contentRowPart->setImageUrl('/images/backend_development.png');
         $this->em->persist($contentRowPart);
 
         $contentRowPart = new ContentRowPart();
@@ -89,8 +85,133 @@ class InsertDemoDataCommand extends Command
         $contentRowPart->setTypeCode('text');
         $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('Intro Paragraph');
-        $contentHtml = '<p></p>';
+        $contentHtml = '<p>Most of my experience is with Backend Development. I enjoy working with the backend. '.
+            'Whether it\'s database design, REST API\'s, or a Single Sign On module, I can provide a robust solution. '.
+            'There\'s a lot of thought and planning that goes into both database design and API interaction. '.
+            'I\'ll outline my thought process in the next two sections. </p>';
         $contentRowPart->setContent($contentHtml);
+        $this->em->persist($contentRowPart);
+
+        $counter++;
+        $contentRow = new ContentRow();
+        $contentRow->setContent($content);
+        $contentRow->setSortOrder($counter);
+        $contentRow->setTitle('Database');
+        $this->em->persist($contentRow);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setTypeCode('text');
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Database Paragraph');
+        $contentHtml = '<p>When I design a database structure, I consider how the "objects" are related, and also how to look up individual rows. '.
+            'If we consider a product database, we need to look up the product by its SKU, and maybe a UPC code. '.
+            'Both the SKU and UPC should be unique, so we give both columns a unique constraint. '.
+            'In an e-commerce system, a product can have multiple categories and tags. From the product side, this is a one-to-many relationship. '.
+            'From the category side, a category can also have many products, so we should create a many-to-many "mapper" table. '.
+            'Our mapper table will store a reference to both a product and a category. </p>';
+        $contentRowPart->setContent($contentHtml);
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(2);
+        $contentRowPart->setTitle('Database Image');
+        $contentRowPart->setImageUrl('/images/database_product.png');
+        $this->em->persist($contentRowPart);
+
+        $counter++;
+        $contentRow = new ContentRow();
+        $contentRow->setContent($content);
+        $contentRow->setSortOrder($counter);
+        $contentRow->setTitle('REST API');
+        $this->em->persist($contentRow);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('REST API Image');
+        $contentRowPart->setImageUrl('/images/rest_api.png');
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setTypeCode('text');
+        $contentRowPart->setSortOrder(2);
+        $contentRowPart->setTitle('REST API Paragraph');
+        $contentHtml = '<p>When I design a REST API, I think about how data should be pushed and pulled. '.
+            'In both the push and pull, you\'ll need to reference a table row by its key or a unique identifier. '.
+            'For example, a URL that looks like /content/about-me will reference a content page by a string ID. '.
+            'Usually, this is a row ID, but it could be a hash string, or something similar like a product SKU or UPC code. '.
+            'HTTP is used with REST APIs, and it supports multiple request methods. The most common methods are GET, POST, and PUT. '.
+            'When we pull data, we use a GET request. When we push data, we use POST and PUT. '.
+            'Generally speaking, POST is for creating new rows of data and PUT is used for updating existing rows of data.</p>';
+        $contentRowPart->setContent($contentHtml);
+        $this->em->persist($contentRowPart);
+
+        $counter++;
+        $contentRow = new ContentRow();
+        $contentRow->setContent($content);
+        $contentRow->setSortOrder($counter);
+        $contentRow->setTitle('Single Sign On');
+        $this->em->persist($contentRow);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setTypeCode('text');
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Single Sign On Paragraph');
+        $contentHtml = '<p>I\'ve implemented Single Sign On quite a few times, using both OAuth2 and SAML. '.
+            'Generally speaking, SAML is used with internal organizations. '.
+            'All of the SAML integrations I\'ve implemented were based on Microsoft Azure, and focused on employee accounts. '.
+            'OAuth2 is more modern and flexible. You can use your own Identity Provider such as Keycloak, or you can support Google or Facebook login. '.
+            'When you implement Google or Facebook login, it\'s a three-step process. First, you redirect the user to Google or Facebook. ' .
+            'After the user logs in, they are redirected you back to your site. '.
+            'The last step is a callback from the backend to check if the login was successful. '.
+            'The callback response will include user information such as email, first name, and last name. '.
+            'OAuth2 also supports basic login forms, where you enter your username and password into a login form. '.
+            'If login is successful, the Identity Provider will return a JWT response, which contains user and authorization information. '.'</p>';
+        $contentRowPart->setContent($contentHtml);
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(2);
+        $contentRowPart->setTitle('Database Image');
+        $contentRowPart->setImageUrl('/images/sso.png');
+        $this->em->persist($contentRowPart);
+
+        $counter++;
+        $contentRow = new ContentRow();
+        $contentRow->setContent($content);
+        $contentRow->setSortOrder($counter);
+        $contentRow->setTitle('Database ORM');
+        $this->em->persist($contentRow);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setTypeCode('text');
+        $contentRowPart->setSortOrder(1);
+        $contentRowPart->setTitle('Database ORM Paragraph');
+        $contentHtml = '<p>In the middle of all of this, there is the code that communicates with the database. '.
+            'In software architecture, this is referred to as the Model. It is the code that interacts with data storage. '.
+            'There are popular packages available to use such as Doctrine ORM or Eloquent. '.
+            'Ultimately, this is the code that sends SQL commands to the database. '.
+            'Generally speaking, each database table will have a class with setter and getter methods. '.
+            'When you\'re creating new rows of data or updating existing rows, your code will get and set information, '.
+            'then call a save function to store the rows of data in the database.</p>';
+        $contentRowPart->setContent($contentHtml);
+        $this->em->persist($contentRowPart);
+
+        $contentRowPart = new ContentRowPart();
+        $contentRowPart->setTypeCode('image');
+        $contentRowPart->setContentRow($contentRow);
+        $contentRowPart->setSortOrder(2);
+        $contentRowPart->setTitle('Doctrine Image');
+        $contentRowPart->setImageUrl('/images/doctrine_class.png');
         $this->em->persist($contentRowPart);
 
         return $this;
@@ -132,7 +253,7 @@ class InsertDemoDataCommand extends Command
         $contentRowPart->setSortOrder(2);
         $contentRowPart->setTitle('Intro Paragraph');
         $contentHtml = '<p>As time goes on, I find myself helping more with architecture, project planning, and project management. '.
-            'I previously worked with LG Electronics as a Technical Lead, where I also helped with Software Architecture planning. '.
+            'I previously worked with LG Electronics as a Technical Lead, where I also helped with Software Architecture. '.
             'I\'ve really enjoyed creating diagrams in Lucid and Vizio, as well as translating diagrams into code. '.
             'In other projects, I\'ve had opportunities to create diagrams as part of our planning process, and it\'s always a fun process.</p>';
         $contentRowPart->setContent($contentHtml);
@@ -153,12 +274,12 @@ class InsertDemoDataCommand extends Command
         $contentRowPart->setSortOrder(1);
         $contentRowPart->setTitle('About my Code Review Experience');
         $contentHtml = '<p>Code review is a critical step in the development process. '.
-            'It\'s important to catch any potential issues before they reach the production server. '.
+            'It\'s important to catch performance issues before they reach the production server. '.
             'If the site slows down, it can reduce the number of paying customers visiting the site. '.
-            'There are some common performance issues, which can create a bottleneck, and can cause the site to slow down. '.
-            'One of the most common issues I\'ve seen is calling the database from the inside of a loop in the code. '.
+            'There are some common performance issues, which can create bottlenecks, and can cause the site to slow down. '.
+            'One of the most common issues I\'ve seen is calling the database from the inside of a loop. '.
             'In almost every instance, the query in the loop can be replaced with a single query. '.
-            'It just takes a little more thought and time. It\'s always worth the extra effort.</p>';
+            'It just takes a little more thought and time. It\'s always worth it in the end.</p>';
         $contentRowPart->setContent($contentHtml);
         $this->em->persist($contentRowPart);
 
@@ -195,8 +316,8 @@ class InsertDemoDataCommand extends Command
         $contentHtml = '<p>There are times when a project might seem huge and time-consuming, but it\'s actually straight-forward and quick. '.
             'The opposite can also be true. '.
             'In this scenario, it\'s important for project managers and developers to work together and plan the project with a realistic timeline. '.
-            'There are usually some very interesting conversations to be had, and it\'s a great opportunity for everyone on the team to work together. '.
-            'I always enjoy planning sessions. As a software developer, it\'s fun to bring some perspective to the table and have a group chat. </p>';
+            'There are usually some very interesting conversations, and it\'s a great opportunity for everyone on the team to work together. '.
+            'I always enjoy planning sessions. It\'s fun to bring some perspective to the table and have a group chat. </p>';
         $contentRowPart->setContent($contentHtml);
         $this->em->persist($contentRowPart);
 
@@ -214,7 +335,7 @@ class InsertDemoDataCommand extends Command
         $contentRowPart->setTypeCode('text');
         $contentRowPart->setSortOrder(1);
         $contentRowPart->setTitle('About my Jira and Trello Experience');
-        $contentHtml = '<p>Jira is a powerful tool for project planning, and it has a lot of features for visualizations and analytics. '.
+        $contentHtml = '<p>Jira is a powerful tool for planning projects, and it has a lot of features for visualizations and analytics. '.
             'Whether it\'s time tracking, sprint planning, or creating simple tasks, it all adds up to important information which can be used to improve project performance. '.
             'I\'ve worked with most areas of Jira, and I enjoy working with it. I think a tightly managed project should use as many features as possible. </p>';
         $contentRowPart->setContent($contentHtml);
@@ -633,22 +754,4 @@ class InsertDemoDataCommand extends Command
         return $this;
     }
 
-    protected function createUsers(): static
-    {
-        $user = new \App\Entity\User();
-        $user->setEmail('test@fake.com');
-        $user->setFirstName('Test');
-        $user->setLastName('User');
-        $user->setRoles(['ROLE_ADMIN']);
-
-        $plaintextPassword = 'passw0rd';
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user,
-            $plaintextPassword
-        );
-        $user->setPassword($hashedPassword);
-        $this->em->persist($user);
-
-        return $this;
-    }
 }
